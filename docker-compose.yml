@@ -1,0 +1,19 @@
+neo4j:
+  build: ./neo4j-container
+  ports:
+    - "7474:7474"
+    - "7687:7687"
+  environment:
+    - "DOI=${DOI}"
+  volumes:
+    - /opt/data
+    - ~/.aws:/root/.aws
+
+jupyter:
+  build: ./jupyter-container
+  ports:
+    - "8888:8888"
+  links:
+    - neo4j:neo4j
+  volumes:
+    - .:/workbench
